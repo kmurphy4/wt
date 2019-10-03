@@ -32,7 +32,11 @@ if __name__ == '__main__':
         use_parser.add_argument('branch')
         use_parser.set_defaults(func=wt_use)
 
-        args = parser.parse_args()
+        try:
+            args = parser.parse_args()
+        except:
+            raise WorktreeError()
+
         if args.cmd is None:
             raise WorktreeError('missing required arg: cmd')
 
@@ -42,7 +46,8 @@ if __name__ == '__main__':
         print(dest)
 
     except WorktreeError as e:
-        sys.stderr.write(str(e) + '\n')
+        if str(e):
+            sys.stderr.write(str(e) + '\n')
         print(os.getcwd())
 
 
