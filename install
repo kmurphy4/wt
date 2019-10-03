@@ -1,12 +1,19 @@
 #!/bin/bash
 
-if grep -q 'wt()' ~/.bashrc; then
+if grep -q 'keggsmurph21/wt' ~/.bashrc; then
     exit
 fi
 
-echo "\
-wt() {
-    # see https://github.com/keggsmurph21/wt
-    cd \$(python3 $(dirname $(realpath $0))/main.py "\$@")
-}
-" >> ~/.bashrc
+PREFIX=~
+install_dir="$PREFIX/.config/wt"
+mkdir -p "$install_dir"
+
+my_dir="$(dirname "$(realpath "$0")")"
+cp "$my_dir/*.py" "$install_dir"
+
+cat "$my_dir/wt.bash" \
+    | sed -E "s,/path/to/wt,$install_dir," \
+    > "$install_dir/wt.bash"
+
+echo "# see https://github.com/keggsmurph21/wt
+source \"$install_dir/wt.bash\"" >> ~/.bashrc
