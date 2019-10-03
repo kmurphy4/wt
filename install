@@ -1,19 +1,18 @@
 #!/bin/bash
 
+# TODO allow different bash files (e.g. .bash_profile for MacOS)
 if grep -q 'keggsmurph21/wt' ~/.bashrc; then
-    exit
+    exit # TODO do something smarter here
 fi
 
-PREFIX=~
+PREFIX=~ # TODO allow user to change this during installation
 install_dir="$PREFIX/.config/wt"
 mkdir -p "$install_dir"
 
 my_dir="$(dirname "$(realpath "$0")")"
-cp "$my_dir/*.py" "$install_dir"
+cp "$my_dir"/*.py "$my_dir/wt.bash" "$install_dir"
+sed -i -E "s,/path/to/wt,$install_dir," "$install_dir/wt.bash"
 
-cat "$my_dir/wt.bash" \
-    | sed -E "s,/path/to/wt,$install_dir," \
-    > "$install_dir/wt.bash"
-
-echo "# see https://github.com/keggsmurph21/wt
+echo "
+# see https://github.com/keggsmurph21/wt
 source \"$install_dir/wt.bash\"" >> ~/.bashrc

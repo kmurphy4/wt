@@ -8,7 +8,7 @@
 # in your .bashrc or .bash_profile to use it
 
 wt() {
-    local path=~/src/keggsmurph21/wt
+    local path=/path/to/wt
     cd $(python3 $path/main.py $@)
 }
 
