@@ -6,7 +6,7 @@ fi
 
 echo "\
 wt() {
-    # see https://github.com/keggsmurph21/wt/install
+    # see https://github.com/keggsmurph21/wt
     cd \$(python3 $(dirname $(realpath $0))/main.py "\$@")
 }
 " >> ~/.bashrc
