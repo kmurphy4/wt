@@ -1,0 +1,2 @@
+class WorktreeError(ValueError):
+    pass
