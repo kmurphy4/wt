@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if grep -q 'wt()' ~/.bashrc; then
+    exit
+fi
+
+echo "\
+wt() {
+    # see https://github.com/keggsmurph21/wt/install
+    cd \$(python3 $(dirname $(realpath $0))/main.py "\$@")
+}
+" >> ~/.bashrc
