@@ -45,11 +45,12 @@ class Worktree():
     def __init__(self, path, head, branch):
 
         self.path = path
+        self._path = path.replace(os.path.expanduser('~'), '~')
         self.head = head
         self.branch = branch
 
     def pretty_print(self, show_all):
         if show_all:
-            return f'{self.branch:30}\t{self.head[:7]}\t{self.path}'
+            return f'{self.branch:30}\t{self.head[:7]}\t{self._path}'
         else:
             return self.branch
