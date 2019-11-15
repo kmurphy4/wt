@@ -25,11 +25,11 @@ def worktree_add(path, branch):
     if proc.returncode > 0:
         raise WorktreeError(f'worktree-add returned code {proc.returncode}\n\n{proc.stderr}')
 
-    match = re.match(f'^Preparing (.*) \(identifier .*\)\nHEAD is now at ([0-9a-f]+) (.*)$', proc.stdout)
+    match = re.match(rf'^(Preparing (.*) \(identifier .*\))?\nHEAD is now at ([0-9a-f]+) (.*)$', proc.stdout)
     if match is None:
         raise WorktreeError(f'worktree-add could not match text \n\n{proc.stdout}')
 
-    return list(match.group(1, 2)) + [branch]
+    return path, match.group(3), branch
 
 def worktree_parse(text):
     match = re.match(r'^worktree (.*)\nHEAD ([0-9a-f]{40})\nbranch refs/heads/(.*)$', text)
