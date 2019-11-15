@@ -18,7 +18,7 @@ __wt_complete() {
     COMPREPLY=()
     curr="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    cmds="list use"
+    cmds="list use add"
     worktrees="$(git worktree list --porcelain 2>/dev/null \
         | awk 'NR % 4 == 3' \
         | sed -E 's,.*refs/heads/,,')"
@@ -26,6 +26,7 @@ __wt_complete() {
     case "$prev" in
         wt)     opts="$cmds" ;;
         use)    opts="$worktrees" ;;
+        add)    opts="" ;;
         list)   opts="" ;;
         *)      opts="" ;;
     esac
