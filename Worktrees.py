@@ -6,9 +6,18 @@ from WorktreeError import WorktreeError
 class Worktrees():
     def __init__(self, cwd):
 
+        self.new_worktrees_dir = os.path.expanduser('~/.worktrees')
         self._worktrees = {}
         for path, head, branch in porcelain.worktree_list():
             self._worktrees[branch] = Worktree(path, head, branch)
+
+    def add(self, branch):
+        owner, repo = porcelain.get_owner_and_repo()
+        worktree_path = os.path.join(self.new_worktrees_dir, owner, repo, branch)
+        if not os.path.exists(worktree_path):
+            os.makedirs(worktree_path, exist_ok=True)
+        path, head, branch = porcelain.worktree_add(worktree_path, branch)
+        self._worktrees[branch] = Worktree(path, head, branch)
 
     def has(self, branch):
         return branch in self._worktrees

@@ -15,7 +15,9 @@ def wt_list(cwd, args):
     return os.getcwd()
 
 def wt_add(cwd, args):
-    pass
+    trees = Worktrees(cwd)
+    trees.add(args.branch)
+    return os.getcwd()
 
 if __name__ == '__main__':
 
@@ -32,10 +34,14 @@ if __name__ == '__main__':
         use_parser.add_argument('branch')
         use_parser.set_defaults(func=wt_use)
 
+        add_parser = subparsers.add_parser('add')
+        add_parser.add_argument('branch')
+        add_parser.set_defaults(func=wt_add)
+
         try:
             args = parser.parse_args()
-        except:
-            raise WorktreeError()
+        except Exception as e:
+            raise WorktreeError(str(e))
 
         if args.cmd is None:
             raise WorktreeError('missing required arg: cmd')
