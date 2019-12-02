@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     try: # protect against -euo pipefail, since this file is run in a sourced command
 
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(prog='wt')
         subparsers = parser.add_subparsers(dest='cmd')
 
         list_parser = subparsers.add_parser('list')
