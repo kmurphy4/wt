@@ -50,9 +50,8 @@ if __name__ == '__main__':
 
         print(dest)
 
-    except WorktreeError as e:
-        if str(e):
-            sys.stderr.write(str(e) + '\n')
+    except Exception as e:
+        print(str(e), file=sys.stderr)
         print(os.getcwd())
 
 
