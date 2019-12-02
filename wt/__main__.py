@@ -2,8 +2,8 @@ import argparse
 import os
 import sys
 
-from WorktreeError import WorktreeError
-from Worktrees import Worktrees
+from .WorktreeError import WorktreeError
+from .Worktrees import Worktrees
 
 def wt_use(cwd, args):
     trees = Worktrees(cwd)

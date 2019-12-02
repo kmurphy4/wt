@@ -1,7 +1,7 @@
 import os
-import porcelain
 
-from WorktreeError import WorktreeError
+from . import porcelain
+from .WorktreeError import WorktreeError
 
 class Worktrees():
     def __init__(self, cwd):

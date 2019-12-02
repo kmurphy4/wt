@@ -1,7 +1,8 @@
+import os
 import re
 import subprocess
 
-from WorktreeError import WorktreeError
+from .WorktreeError import WorktreeError
 
 def run(command):
     return subprocess.run(
@@ -33,9 +34,9 @@ def worktree_add(path, branch):
 
 def worktree_parse(text):
     match = re.match(r'^worktree (.*)\nHEAD ([0-9a-f]{40})\nbranch refs/heads/(.*)$', text)
-    if match is None:
-        raise WorktreeError(f'worktree-parse could not match text\n\n{text}')
-    return match.group(1,2,3)
+    if match is not None:
+        return match.group(1,2,3)
+    raise WorktreeError(f'worktree-parse could not match text\n\n{text}')
 
 def get_current_branch():
     proc = run('git rev-parse --abbrev-ref HEAD')
