@@ -5,9 +5,9 @@ utility for wrapping around `git worktree`, allowing easy navigation between tre
 ### installation
 
 ```bash
-$ git clone https://github.com/keggsmurph21/wt.git ~/.wt
-$ cd ~/.wt
-$ ./install
+$ git clone https://github.com/keggsmurph21/wt
+$ cd wt
+$ ./scripts/install
 $ source ~/.bashrc
 ```
 
@@ -43,19 +43,47 @@ $ pwd
 ~/.worktrees/:owner/:repo/testing
 ```
 
-##### add a new worktree (coming soon)
+##### add a new worktree (from an existing branch)
 
 ```bash
 $ pwd
 /path/to/master
-$ wt add new-branch # coming soon!
+$ git branch --list
+* master
+  testing
 $ wt list
 worktrees:
   - master
-  - feature-123
+$ wt add testing
+$ pwd
+~/.worktrees/:owner/:repo/testing
+$ wt list
+worktrees:
+  - master
   - testing
-  - stable
-  - new-branch
+```
+
+##### add a new worktree (and create a new branch) (coming soon)
+
+```bash
+$ pwd
+/path/to/master
+$ git branch --list
+* master
+  testing
+$ wt list
+worktrees:
+  - master
+$ wt add new-branch
 $ pwd
 ~/.worktrees/:owner/:repo/new-branch
+$ git branch --list
+  master
+  testing
+* new-branch
+$ wt list
+worktrees:
+  - master
+  - testing
+  - new-branch
 ```
