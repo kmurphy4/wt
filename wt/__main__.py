@@ -11,13 +11,12 @@ def wt_use(cwd, args):
 
 def wt_list(cwd, args):
     trees = Worktrees(cwd)
-    sys.stderr.write(trees.pretty_print(args.all) + '\n')
+    print(trees.pretty_print(args.all), file=sys.stderr)
     return os.getcwd()
 
 def wt_add(cwd, args):
     trees = Worktrees(cwd)
-    trees.add(args.branch)
-    return os.getcwd()
+    return trees.add(args.branch)
 
 if __name__ == '__main__':
 

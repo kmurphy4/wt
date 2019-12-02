@@ -19,6 +19,8 @@ class Worktrees():
         path, head, branch = porcelain.worktree_add(worktree_path, branch)
         self._worktrees[branch] = Worktree(path, head, branch)
 
+        return worktree_path
+
     def has(self, branch):
         return branch in self._worktrees
 
