@@ -8,7 +8,7 @@
 # Source this file in your .bashrc or .bash_profile to use it.
 # NOTE: either set __PATH_TO_WT manually or run scripts/install
 
-__PATH_TO_WT="/home/kevinmurphy/src/keggsmurph21/wt/scripts/.."
+__PATH_TO_WT=
 
 wt() {
     pushd $__PATH_TO_WT >/dev/null

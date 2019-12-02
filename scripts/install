@@ -1,18 +1,20 @@
 #!/bin/bash
 
-# TODO allow different bash files (e.g. .bash_profile for MacOS)
-#if grep -q 'keggsmurph21/wt' ~/.bashrc; then
-#    exit # TODO do something smarter here
-#fi
-
-PREFIX=~ # TODO allow user to change this during installation
-install_dir="$PREFIX/.config/wt"
-mkdir -p "$install_dir"
-
 my_dir="$(dirname "$(realpath "$0")")"
-cp "$my_dir"/*.py "$my_dir/wt.bash" "$install_dir"
-sed -i -E "s,/path/to/wt,$install_dir," "$install_dir/wt.bash"
+cat "$my_dir/wt-template.bash" \
+    | sed -E "s,__PATH_TO_WT=,__PATH_TO_WT=\"$my_dir/..\"," \
+    > "$my_dir/wt.bash"
 
-#echo "
-## see https://github.com/keggsmurph21/wt
-#source \"$install_dir/wt.bash\"" >> ~/.bashrc
+# TODO allow different bash files (e.g. .bash_profile for MacOS)
+BASH_FILE="$HOME/.bashrc"
+
+# idempotence
+grep -q 'keggsmurph21/wt' $BASH_FILE || cat <<EOF>> $BASH_FILE
+# see https://github.com/keggsmurph21/wt
+source $my_dir/wt.bash
+EOF
+
+cat <<EOM
+to complete installation, run in a terminal:
+    $ . $BASH_FILE
+EOM
